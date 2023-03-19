@@ -1,3 +1,11 @@
+// 如何防止循环引用
+// 依靠开发者来保证 不能依靠rust编译器
+// 重新组织数据结构，一些引用来表达所有权 一些引用不表达所有权
+
+// 将Rc<T> 换成 Weak<T>
+// Rc::clone为Rc<T>实例的strong_count加1，Rc<T>实例只有在strong_count 为0的时候才会被清理
+// Rc<T> 实例通过调用Rc::downgrade方法可以创建值的Weak Refence ，每次调用时weak_count +1
+// weak_count 不为零不影响Rc<T>实例的清理
 use crate::Node::{Cons, Nil};
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -34,5 +42,5 @@ fn main() {
     }
 
     // 这里会导致栈溢出
-    println!("a next item = {:?}", a.tail());
+    // println!("a next item = {:?}", a.tail());
 }
