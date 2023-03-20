@@ -9,7 +9,7 @@ use std::{
 // 想要访问数据必须首先获取互斥锁lock
 
 // 多线程情况下数据的多重所有权需要使用Arc<T>智能指针
-// 使用Arc来进行原子引用计数，可以用在并发场景，类似于Rc指针，但是Rc指针不能用于多线程环境，本质是因为没有实现Mutex的trait
+// 使用Arc来进行原子引用计数，可以用在并发场景，类似于Rc指针，但是Rc指针不能用于多线程环境，本质是因为没有实现send的trait
 
 // RefCell<T>/Rc<T> vs Mutex<T>/Arc<T>
 // Mutex<T>提供了内部可变性，和Cell家族一样
@@ -36,3 +36,6 @@ fn main() {
 
     println!("Result : {}", *counter.lock().unwrap());
 }
+
+
+
